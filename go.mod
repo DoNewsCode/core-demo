@@ -20,7 +20,7 @@ require (
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/spf13/cobra v1.1.1
 	github.com/spf13/pflag v1.0.5 // indirect
-	google.golang.org/genproto v0.0.0-20210125195502-f46fe6c6624a
+	google.golang.org/genproto deb828366460
 	google.golang.org/grpc v1.35.0
 	gorm.io/gorm v1.20.12
 )
