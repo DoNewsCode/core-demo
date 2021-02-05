@@ -14,12 +14,10 @@ import (
 	"google.golang.org/grpc"
 )
 
-type AppModule struct{
+type AppModule struct {
 	UserTransport user.Transport
 	BookTransport book.Transport
 }
-
-
 
 func (a AppModule) ProvideHttp(router *mux.Router) {
 	router.PathPrefix("/app/user/").Handler(http.StripPrefix("/app/user", a.UserTransport))
@@ -41,4 +39,3 @@ func (a AppModule) ProvideSeed() []*otgorm.Seed {
 func (a AppModule) SeedRedis() func(client redis.UniversalClient) error {
 	return book.Seed
 }
-

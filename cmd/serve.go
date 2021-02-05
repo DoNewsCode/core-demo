@@ -68,10 +68,8 @@ func NewServeCommand(c *core.C) *cobra.Command {
 				}, func(err error) {
 					ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 					defer cancel()
-					if err := srv.Shutdown(ctx); err != nil {
-						c.Err(err)
-						os.Exit(1)
-					}
+					err = srv.Shutdown(ctx)
+					c.CheckErr(err)
 					_ = ln.Close()
 				})
 			}
@@ -132,4 +130,3 @@ func NewServeCommand(c *core.C) *cobra.Command {
 	}
 	return serveCmd
 }
-
