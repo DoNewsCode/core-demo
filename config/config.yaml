@@ -1,0 +1,33 @@
+name: skeleton
+version: 0.1.0
+env: local
+http:
+  addr: :8080
+grpc:
+  addr: :9090
+log:
+  level: debug
+redis:
+  default:
+    addrs:
+      - 127.0.0.1:6379
+    database: 0
+gorm:
+  default:
+    database: mysql
+    dsn: root@tcp(127.0.0.1:3306)/skeleton?charset=utf8mb4&parseTime=True&loc=Local
+jaeger:
+  sampler:
+    type: 'const'
+    param: 1
+  reporter:
+    addr: 127.0.0.1:6831
+    log: true
+s3:
+  default:
+    accessKey:
+    accessSecret:
+    bucket: ad-material
+    endpoint: http://minio.xg.tagtic.cn
+    region: cn-foshan-1
+    cdnUrl: http://ad-static-xg.tagtic.cn/ad-material/%s

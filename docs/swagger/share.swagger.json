@@ -1,0 +1,457 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "商业化中台分享服务",
+    "version": "0.1.0",
+    "contact": {
+      "name": "谷溪",
+      "email": "guxi@infinities.com.cn"
+    }
+  },
+  "basePath": "/share/v1",
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/claim": {
+      "post": {
+        "summary": "领取邀请后的奖励",
+        "operationId": "Share_ClaimReward",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ShareGenericReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1ShareClaimRewardRequest"
+            }
+          }
+        ],
+        "tags": [
+          "分享"
+        ]
+      }
+    },
+    "/code": {
+      "get": {
+        "summary": "获取邀请码",
+        "operationId": "Share_InviteByToken",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ShareDataTokenReply"
+            }
+          }
+        },
+        "tags": [
+          "分享"
+        ]
+      },
+      "put": {
+        "summary": "填写邀请码",
+        "operationId": "Share_AddInvitationCode",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ShareGenericReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1ShareAddInvitationRequest"
+            }
+          }
+        ],
+        "tags": [
+          "分享"
+        ]
+      }
+    },
+    "/event/sign": {
+      "post": {
+        "summary": "手动推送签到事件",
+        "operationId": "Share_PushSignEvent",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ShareGenericReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1SignEvent"
+            }
+          }
+        ],
+        "tags": [
+          "事件同步"
+        ]
+      }
+    },
+    "/event/task": {
+      "post": {
+        "summary": "手动推送任务事件",
+        "operationId": "Share_PushTaskEvent",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ShareGenericReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1TaskEvent"
+            }
+          }
+        ],
+        "tags": [
+          "事件同步"
+        ]
+      }
+    },
+    "/list": {
+      "get": {
+        "summary": "获取邀请列表",
+        "operationId": "Share_ListFriend",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ShareListFriendReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "depth",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "分享"
+        ]
+      }
+    },
+    "/url": {
+      "get": {
+        "summary": "获取邀请链接",
+        "operationId": "Share_InviteByUrl",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ShareDataUrlReply"
+            }
+          }
+        },
+        "tags": [
+          "分享"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "ShareDataTokenReplyCode": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        }
+      }
+    },
+    "ShareDataUrlReplyUrl": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        }
+      }
+    },
+    "v1ClaimStatus": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN_CLAIM_STATUS",
+        "DONE",
+        "READY",
+        "NOT_READY"
+      ],
+      "default": "UNKNOWN_CLAIM_STATUS"
+    },
+    "v1ShareAddInvitationRequest": {
+      "type": "object",
+      "properties": {
+        "invite_code": {
+          "type": "string"
+        }
+      }
+    },
+    "v1ShareClaimRewardRequest": {
+      "type": "object",
+      "properties": {
+        "apprenticeId": {
+          "type": "string",
+          "format": "uint64"
+        }
+      }
+    },
+    "v1ShareDataTokenReply": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/ShareDataTokenReplyCode"
+        }
+      }
+    },
+    "v1ShareDataUrlReply": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/ShareDataUrlReplyUrl"
+        }
+      }
+    },
+    "v1ShareGenericReply": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "v1ShareListFriendData": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1ShareListFriendDataItem"
+          }
+        },
+        "count_all": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "count_not_ready": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "v1ShareListFriendDataItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "user_name": {
+          "type": "string"
+        },
+        "head_img": {
+          "type": "string"
+        },
+        "gender": {
+          "$ref": "#/definitions/v2Gender"
+        },
+        "steps": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "boolean"
+          }
+        },
+        "claim_status": {
+          "$ref": "#/definitions/v1ClaimStatus"
+        },
+        "coin": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "create_at": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "v1ShareListFriendReply": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/v1ShareListFriendData"
+        }
+      }
+    },
+    "v1SignEvent": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "user_id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "package_name": {
+          "type": "string"
+        },
+        "channel": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "event_name": {
+          "type": "string"
+        },
+        "score": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "date_time": {
+          "type": "string"
+        },
+        "third_party_id": {
+          "type": "string"
+        },
+        "is_double": {
+          "type": "boolean"
+        },
+        "ext": {
+          "type": "string"
+        }
+      }
+    },
+    "v1TaskEvent": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "user_id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "package_name": {
+          "type": "string"
+        },
+        "channel": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "event_name": {
+          "type": "string"
+        },
+        "score": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "date_time": {
+          "type": "string"
+        },
+        "third_party_id": {
+          "type": "string"
+        },
+        "done_num": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "total_num": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "is_done": {
+          "type": "boolean"
+        },
+        "ext": {
+          "type": "string"
+        }
+      }
+    },
+    "v2Gender": {
+      "type": "string",
+      "enum": [
+        "GENDER_UNKNOWN",
+        "GENDER_MALE",
+        "GENDER_FEMALE"
+      ],
+      "default": "GENDER_UNKNOWN"
+    }
+  },
+  "securityDefinitions": {
+    "JWT": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "JWT": []
+    }
+  ],
+  "externalDocs": {
+    "description": "商业化中台文档",
+    "url": "http://monetization-docs.xg.tagtic.cn/#/"
+  }
+}
