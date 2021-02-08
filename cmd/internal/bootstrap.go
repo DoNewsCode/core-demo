@@ -22,9 +22,13 @@ func Bootstrap() (*cobra.Command, *core.C) {
 	}
 
 	// Determine config path from commandline
-	rootCmd.PersistentFlags().StringVar(&cfgPath, "config", "./config/config.yaml", "config file (default is ./config/config.yaml)")
+	rootCmd.PersistentFlags().StringVar(
+		&cfgPath,
+		"config",
+		"./config/config.yaml",
+		"config file (default is ./config/config.yaml)",
+	)
 	_ = rootCmd.PersistentFlags().Parse(os.Args[1:])
-
 
 	// setup core with config file path
 	c := core.New(core.WithYamlFile(cfgPath))
@@ -35,14 +39,10 @@ func Bootstrap() (*cobra.Command, *core.C) {
 	// register global modules
 	register(c)
 
-	// add command from modules
+	// add commands from modules
 	for _, p := range c.CommandProviders {
 		p(rootCmd)
 	}
 
 	return rootCmd, c
-}
-
-func shutdownModules() {
-
 }

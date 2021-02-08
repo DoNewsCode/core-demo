@@ -10,6 +10,6 @@ import (
 func provide(c *core.C) {
 	c.ProvideItself()
 	c.Provide(observability.Observability)
-	c.Provide(otgorm.Database)
-	c.Provide(otredis.Redis)
+	c.Provide(otgorm.ProvideDefaultDatabase)
+	c.Provide(otredis.ProvideDefaultRedis)
 }

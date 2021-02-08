@@ -1,5 +1,5 @@
 name: skeleton
-version: 0.2.0
+version: 0.1.0
 env: local
 http:
   addr: :8080
@@ -8,52 +8,23 @@ grpc:
 log:
   level: debug
 redis:
-  addrs:
-    - 127.0.0.1:6379
-  database: 0
+  default:
+    addrs:
+      - 127.0.0.1:6379
+    DB: 0
 gorm:
-  database: mysql
-  dsn: root@tcp(127.0.0.1:3306)/kitty?charset=utf8mb4&parseTime=True&loc=Local
+  default:
+    database: mysql
+    dsn: root@tcp(127.0.0.1:3306)/skeleton?charset=utf8mb4&parseTime=True&loc=Local
 jaeger:
   sampler:
     type: 'const'
     param: 1
-  log:
-    enable: true
+  reporter:
+    addr: 127.0.0.1:6831
+    log: true
 s3:
-  accessKey:
-  accessSecret:
-  bucket: ad-material
-  endpoint: http://minio.xg.tagtic.cn
-  region: cn-foshan-1
-  cdnUrl: http://ad-static-xg.tagtic.cn/ad-material/%s
-app:
-  name: kitty
-  redis:
-    addrs:
-      - 127.0.0.1:6379
-    database: 0
-  gorm:
-    database: mysql
-    dsn: root@tcp(127.0.0.1:3306)/kitty?charset=utf8mb4&parseTime=True&loc=Local
-  jaeger:
-    sampler:
-      type: 'const'
-      param: 1
-    log:
-      enable: true
-  sms:
-    sendUrl: "http://hy.mix2.zthysms.com/sendSms.do"
-    balanceUrl: "http://hy.mix2.zthysms.com/balance.do"
-    username: ""
-    password: ""
-    tag: ""
-  wechat:
-    wechatAccessTokenUrl: https://api.weixin.qq.com/sns/oauth2/access_token?appid=%s&secret=%s&code=%s&grant_type=authorization_code
-    wechatGetUserInfoUrl: https://api.weixin.qq.com/sns/userinfo?access_token=%s&openid=%s
-    appId:
-    appSecret:
-  s3:
+  default:
     accessKey:
     accessSecret:
     bucket: ad-material
