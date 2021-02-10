@@ -13,7 +13,7 @@ require (
 	github.com/golang/protobuf v1.4.3
 	github.com/google/wire v0.5.0
 	github.com/gorilla/mux v1.8.0
-	github.com/grpc-ecosystem/grpc-gateway/v2 v2.1.0
+	github.com/grpc-ecosystem/grpc-gateway/v2 v2.2.0
 	github.com/oklog/run v1.1.0
 	github.com/opentracing/opentracing-go v1.2.0
 	github.com/pkg/errors v0.9.1
