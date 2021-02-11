@@ -18,7 +18,7 @@ require (
 	github.com/opentracing/opentracing-go v1.2.0
 	github.com/pkg/errors v0.9.1
 	github.com/robfig/cron/v3 v3.0.1
-	github.com/spf13/cobra v1.1.1
+	github.com/spf13/cobra v1.1.3
 	github.com/spf13/pflag v1.0.5 // indirect
 	google.golang.org/genproto v0.0.0-20210125195502-f46fe6c6624a
 	google.golang.org/grpc v1.35.0
