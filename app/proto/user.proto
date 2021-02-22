@@ -39,12 +39,10 @@ option (options.openapiv2_swagger) = {
   produces: "application/json";
 };
 
-// 用户中心
 service User {
-  // 用户从未登录状态注册或登录时调用。如果用户已登录，需要绑定手机号或微信号，请使用bind接口。
   rpc Login(UserLoginRequest) returns (UserInfoReply) {
     option (options.openapiv2_operation) = {
-      tags: "登录"
+      tags: "login"
     };
     option (google.api.http) = {
       post: "/login"
