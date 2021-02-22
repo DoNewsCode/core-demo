@@ -3,7 +3,7 @@ module github.com/DoNewsCode/skeleton
 go 1.14
 
 require (
-	github.com/DoNewsCode/core v0.0.0-20210222071912-86a2c060d987
+	github.com/DoNewsCode/core 707e8716cf60
 	github.com/envoyproxy/protoc-gen-validate v0.4.1
 	github.com/gin-gonic/gin v1.6.3
 	github.com/go-kit/kit v0.10.0
