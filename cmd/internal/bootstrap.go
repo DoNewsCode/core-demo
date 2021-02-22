@@ -5,7 +5,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/DoNewsCode/std/pkg/core"
+	"github.com/DoNewsCode/core"
 	"github.com/spf13/cobra"
 )
 
@@ -16,7 +16,7 @@ func Bootstrap() (*cobra.Command, *core.C) {
 	var cfgPath string
 
 	rootCmd := &cobra.Command{
-		Use:   "kitty",
+		Use:   "Skeleton",
 		Short: "A Pragmatic and Opinionated Go Application",
 		Long:  `Skeleton provides a starting point to write 12-factor Go Applications.`,
 	}
@@ -31,7 +31,7 @@ func Bootstrap() (*cobra.Command, *core.C) {
 	_ = rootCmd.PersistentFlags().Parse(os.Args[1:])
 
 	// setup core with config file path
-	c := core.New(core.WithYamlFile(cfgPath))
+	c := core.Default(core.WithYamlFile(cfgPath))
 
 	// setup global dependencies
 	provide(c)
@@ -40,9 +40,7 @@ func Bootstrap() (*cobra.Command, *core.C) {
 	register(c)
 
 	// add commands from modules
-	for _, p := range c.CommandProviders {
-		p(rootCmd)
-	}
+	c.ApplyRootCommand(rootCmd)
 
 	return rootCmd, c
 }

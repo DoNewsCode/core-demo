@@ -14,7 +14,7 @@ import (
 
 	"google.golang.org/grpc/metadata"
 
-	"github.com/DoNewsCode/std/pkg/contract"
+	"github.com/DoNewsCode/core/contract"
 	grpctransport "github.com/go-kit/kit/transport/grpc"
 
 	// This Service

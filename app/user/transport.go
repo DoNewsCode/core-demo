@@ -3,13 +3,11 @@ package user
 import (
 	"net/http"
 
+	"github.com/DoNewsCode/core/contract"
+	"github.com/DoNewsCode/core/key"
+	"github.com/DoNewsCode/core/kitmw"
 	app_pb "github.com/DoNewsCode/skeleton/app/proto"
 	usersvc "github.com/DoNewsCode/skeleton/app/user/gen"
-	"github.com/DoNewsCode/std/pkg/contract"
-	"github.com/DoNewsCode/std/pkg/key"
-	"github.com/DoNewsCode/std/pkg/kitmw"
-	"github.com/DoNewsCode/std/pkg/srvgrpc"
-	"github.com/DoNewsCode/std/pkg/srvhttp"
 	"github.com/go-kit/kit/auth/jwt"
 	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/metrics"
@@ -34,20 +32,19 @@ func NewTransport(
 	tracer opentracing.Tracer,
 	metrics metrics.Histogram,
 ) Transport {
-	keyer := key.NewKeyManager("module", module, "service", service)
+	keyer := key.New("module", module, "service", service)
 	endpoints := usersvc.NewEndpoints(server)
 	endpoints.WrapAllLabeledExcept(kitmw.MakeLabeledMetricsMiddleware(metrics, keyer))
 	endpoints.WrapAllLabeledExcept(kitmw.MakeLabeledTraceServerMiddleware(tracer, keyer))
-	endpoints.WrapAllExcept(kitmw.NewValidationMiddleware())
-	endpoints.WrapAllExcept(kitmw.MakeErrorMarshallerMiddleware(kitmw.ErrorOption{
+	endpoints.WrapAllExcept(kitmw.MakeValidationMiddleware())
+	endpoints.WrapAllExcept(kitmw.MakeErrorConversionMiddleware(kitmw.ErrorOption{
 		AlwaysHTTP200: true,
-		AlwaysGRPCOk:  true,
 		ShouldRecover: env.IsProduction(),
 	}))
 	endpoints.WrapAllLabeledExcept(kitmw.MakeLabeledLoggingMiddleware(logger, keyer, env.IsLocal()))
 	httpHandler := usersvc.MakeHTTPHandler(endpoints,
 		httptransport.ServerBefore(
-			srvhttp.IpToContext(),
+			kitmw.IpToHTTPContext(),
 			kittracing.HTTPToContext(tracer, "http", logger),
 		),
 		httptransport.ServerErrorEncoder(kitmw.ErrorEncoder),
@@ -55,7 +52,7 @@ func NewTransport(
 	grpcHandler := usersvc.MakeGRPCServer(endpoints,
 		grpctransport.ServerBefore(
 			kittracing.GRPCToContext(tracer, "grpc", logger),
-			srvgrpc.IpToContext(),
+			kitmw.IpToGRPCContext(),
 		),
 		grpctransport.ServerBefore(jwt.GRPCToContext()),
 	)

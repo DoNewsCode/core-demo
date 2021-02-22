@@ -23,7 +23,7 @@ import (
 
 	"context"
 
-	"github.com/DoNewsCode/std/pkg/contract"
+	"github.com/DoNewsCode/core/contract"
 	httptransport "github.com/go-kit/kit/transport/http"
 	"github.com/gorilla/mux"
 	"github.com/pkg/errors"

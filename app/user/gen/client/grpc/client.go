@@ -17,7 +17,7 @@ import (
 
 	// This Service
 	pb "github.com/DoNewsCode/skeleton/app/proto"
-	"github.com/DoNewsCode/skeleton/app/user/svc"
+	svc "github.com/DoNewsCode/skeleton/app/user/gen"
 )
 
 // New returns an service backed by a gRPC client connection. It is the

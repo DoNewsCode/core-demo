@@ -1,8 +1,8 @@
 package repositories
 
 import (
+	"github.com/DoNewsCode/core/otgorm"
 	"github.com/DoNewsCode/skeleton/internal/entities"
-	"github.com/DoNewsCode/std/pkg/otgorm"
 	"gorm.io/gorm"
 )
 

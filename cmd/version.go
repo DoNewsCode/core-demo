@@ -3,7 +3,7 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/DoNewsCode/std/pkg/core"
+	"github.com/DoNewsCode/core"
 	"github.com/spf13/cobra"
 )
 

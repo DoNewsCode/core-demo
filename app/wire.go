@@ -3,11 +3,11 @@
 package app
 
 import (
+	"github.com/DoNewsCode/core/contract"
 	"github.com/DoNewsCode/skeleton/app/book"
 	pb "github.com/DoNewsCode/skeleton/app/proto"
 	"github.com/DoNewsCode/skeleton/app/user"
 	"github.com/DoNewsCode/skeleton/internal/repositories"
-	"github.com/DoNewsCode/std/pkg/contract"
 	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/metrics"
 	"github.com/go-redis/redis/v8"

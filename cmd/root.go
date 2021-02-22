@@ -11,9 +11,6 @@ func Execute() error {
 
 	// setup command graph
 	rootCmd.AddCommand(NewVersionCommand(c))
-	rootCmd.AddCommand(NewServeCommand(c))
-	rootCmd.AddCommand(NewMigrateCommand(c))
-	rootCmd.AddCommand(NewSeedCommand(c))
 	rootCmd.AddCommand(NewSeedRedisCommand(c))
 
 	// run

@@ -1,11 +1,10 @@
 package cmd
 
 import (
-	"fmt"
 	"os"
 
-	"github.com/DoNewsCode/std/pkg/contract"
-	"github.com/DoNewsCode/std/pkg/core"
+	"github.com/DoNewsCode/core"
+	"github.com/DoNewsCode/core/contract"
 	"github.com/go-redis/redis/v8"
 	"github.com/spf13/cobra"
 )
@@ -25,15 +24,18 @@ func NewSeedRedisCommand(c *core.C) *cobra.Command {
 		Run: func(cmd *cobra.Command, args []string) {
 			_ = c.Invoke(func(env contract.Env) {
 				if env.IsProduction() && !force {
-					c.Err(fmt.Errorf("seeding in production requires force flag to be set"))
+					c.Err("seeding in production requires force flag to be set")
 					os.Exit(1)
 				}
 			})
 
-			err := c.Modules.Filter(func(seeder redisSeeder) error {
+			err := c.Modules().Filter(func(seeder redisSeeder) error {
 				return c.Invoke(seeder.SeedRedis())
 			})
-			c.CheckErr(err)
+			if err != nil {
+				c.Err("seeding in production requires force flag to be set")
+				os.Exit(1)
+			}
 
 			c.Info("seeding successfully completed")
 		},

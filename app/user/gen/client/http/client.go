@@ -25,7 +25,7 @@ import (
 
 	// This Service
 	pb "github.com/DoNewsCode/skeleton/app/proto"
-	"github.com/DoNewsCode/skeleton/app/user/svc"
+	svc "github.com/DoNewsCode/skeleton/app/user/gen"
 )
 
 var (
@@ -177,5 +177,6 @@ func errorDecoder(buf []byte) error {
 }
 
 type errorWrapper struct {
-	Error string `json:"error"`
+	Code  uint   `json:"code"`
+	Error string `json:"message"`
 }

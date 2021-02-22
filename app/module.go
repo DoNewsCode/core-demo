@@ -4,11 +4,11 @@ package app
 import (
 	"net/http"
 
+	"github.com/DoNewsCode/core/otgorm"
 	"github.com/DoNewsCode/skeleton/app/book"
 	pb "github.com/DoNewsCode/skeleton/app/proto"
 	"github.com/DoNewsCode/skeleton/app/user"
 	"github.com/DoNewsCode/skeleton/internal/repositories"
-	"github.com/DoNewsCode/std/pkg/otgorm"
 	"github.com/go-redis/redis/v8"
 	"github.com/gorilla/mux"
 	"google.golang.org/grpc"

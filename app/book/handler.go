@@ -4,9 +4,9 @@ import (
 	"context"
 	"time"
 
+	"github.com/DoNewsCode/core/srvhttp"
+	"github.com/DoNewsCode/core/unierr"
 	"github.com/DoNewsCode/skeleton/internal/entities"
-	"github.com/DoNewsCode/std/pkg/srverr"
-	"github.com/DoNewsCode/std/pkg/srvhttp"
 	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis/v8"
 )
@@ -16,13 +16,14 @@ type Handler struct {
 }
 
 func (b Handler) Find(c *gin.Context) {
+	encoder := srvhttp.NewResponseEncoder(c.Writer)
 	book := c.Query("book")
 	val, err := b.Redis.Get(c, book).Result()
 	if err != nil {
-		srvhttp.EncodeError(c.Writer, srverr.NotFoundErr(err, "book %s not found", book))
+		encoder.EncodeError(unierr.NotFoundErr(err, "book %s not found", book))
 		return
 	}
-	srvhttp.EncodeResponse(c.Writer, entities.Book{
+	encoder.EncodeResponse(entities.Book{
 		BookName: val,
 	})
 }

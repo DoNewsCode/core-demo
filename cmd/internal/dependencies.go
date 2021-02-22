@@ -1,15 +1,16 @@
 package internal
 
 import (
-	"github.com/DoNewsCode/std/pkg/core"
-	"github.com/DoNewsCode/std/pkg/observability"
-	"github.com/DoNewsCode/std/pkg/otgorm"
-	"github.com/DoNewsCode/std/pkg/otredis"
+	"github.com/DoNewsCode/core"
+	"github.com/DoNewsCode/core/observability"
+	"github.com/DoNewsCode/core/otgorm"
+	"github.com/DoNewsCode/core/otredis"
+	"github.com/DoNewsCode/core/ots3"
 )
 
 func provide(c *core.C) {
-	c.ProvideItself()
-	c.Provide(observability.Observability)
-	c.Provide(otgorm.ProvideDefaultDatabase)
-	c.Provide(otredis.ProvideDefaultRedis)
+	c.Provide(observability.Provide)
+	c.Provide(otgorm.Provide)
+	c.Provide(otredis.Provide)
+	c.Provide(ots3.Provide)
 }
