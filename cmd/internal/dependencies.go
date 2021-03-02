@@ -9,8 +9,8 @@ import (
 )
 
 func provide(c *core.C) {
-	c.Provide(observability.Provide)
-	c.Provide(otgorm.Provide)
-	c.Provide(otredis.Provide)
-	c.Provide(ots3.Provide)
+	c.Provide(observability.Providers())
+	c.Provide(otgorm.Providers())
+	c.Provide(otredis.Providers())
+	c.Provide(ots3.Providers())
 }

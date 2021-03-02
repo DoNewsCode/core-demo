@@ -22,7 +22,7 @@ func NewSeedRedisCommand(c *core.C) *cobra.Command {
 		Short: "seed the redis",
 		Long:  `seed the redis by injecting redis instance into the redisSeeder interface. redisSeeder should be registered beforehand.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			_ = c.Invoke(func(env contract.Env) {
+			c.Invoke(func(env contract.Env) {
 				if env.IsProduction() && !force {
 					c.Err("seeding in production requires force flag to be set")
 					os.Exit(1)
@@ -30,7 +30,8 @@ func NewSeedRedisCommand(c *core.C) *cobra.Command {
 			})
 
 			err := c.Modules().Filter(func(seeder redisSeeder) error {
-				return c.Invoke(seeder.SeedRedis())
+				c.Invoke(seeder.SeedRedis())
+				return nil
 			})
 			if err != nil {
 				c.Err("seeding in production requires force flag to be set")
