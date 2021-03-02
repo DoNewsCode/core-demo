@@ -16,7 +16,7 @@ require (
 	github.com/opentracing/opentracing-go v1.2.0
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/cobra v1.1.3
-	google.golang.org/genproto v0.0.0-20210125195502-f46fe6c6624a
+	google.golang.org/genproto v0.0.0-20210302174412-5ede27ff9881
 	google.golang.org/grpc v1.35.0
 	gorm.io/gorm v1.20.12
 )
