@@ -19,12 +19,12 @@ type AppModule struct {
 	BookTransport book.Transport
 }
 
-func (a AppModule) ProvideHttp(router *mux.Router) {
+func (a AppModule) ProvideHTTP(router *mux.Router) {
 	router.PathPrefix("/app/user/").Handler(http.StripPrefix("/app/user", a.UserTransport))
 	router.PathPrefix("/app/book/").Handler(http.StripPrefix("/app/book", a.BookTransport))
 }
 
-func (a AppModule) ProvideGrpc(server *grpc.Server) {
+func (a AppModule) ProvideGRPC(server *grpc.Server) {
 	pb.RegisterUserServer(server, a.UserTransport)
 }
 
