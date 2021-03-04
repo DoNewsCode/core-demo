@@ -18,5 +18,5 @@ require (
 	github.com/spf13/cobra v1.1.3
 	google.golang.org/genproto v0.0.0-20210302174412-5ede27ff9881
 	google.golang.org/grpc v1.35.0
-	gorm.io/gorm v1.20.12
+	gorm.io/gorm v1.21.0
 )
