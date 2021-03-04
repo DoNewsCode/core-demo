@@ -36,7 +36,7 @@ s3:
     region: ""
 
 # The database configuration
-database:
+gorm:
   default:
     allowGlobalUpdate: false
     createBatchSize: 0
