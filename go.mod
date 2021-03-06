@@ -7,7 +7,7 @@ require (
 	github.com/envoyproxy/protoc-gen-validate v0.4.1
 	github.com/gin-gonic/gin v1.6.3
 	github.com/go-kit/kit v0.10.0
-	github.com/go-redis/redis/v8 v8.7.0
+	github.com/go-redis/redis/v8 v8.7.1
 	github.com/gogo/protobuf v1.3.2
 	github.com/golang/protobuf v1.4.3
 	github.com/google/wire v0.5.0
