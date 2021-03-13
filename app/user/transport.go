@@ -1,11 +1,12 @@
 package user
 
 import (
+	"github.com/DoNewsCode/core-kit/option"
 	"net/http"
 
+	"github.com/DoNewsCode/core-kit/mw"
 	"github.com/DoNewsCode/core/contract"
 	"github.com/DoNewsCode/core/key"
-	"github.com/DoNewsCode/core/kitmw"
 	app_pb "github.com/DoNewsCode/skeleton/app/proto"
 	usersvc "github.com/DoNewsCode/skeleton/app/user/gen"
 	"github.com/go-kit/kit/auth/jwt"
@@ -34,25 +35,25 @@ func NewTransport(
 ) Transport {
 	keyer := key.New("module", module, "service", service)
 	endpoints := usersvc.NewEndpoints(server)
-	endpoints.WrapAllLabeledExcept(kitmw.MakeLabeledMetricsMiddleware(metrics, keyer))
-	endpoints.WrapAllLabeledExcept(kitmw.MakeLabeledTraceServerMiddleware(tracer, keyer))
-	endpoints.WrapAllExcept(kitmw.MakeValidationMiddleware())
-	endpoints.WrapAllExcept(kitmw.MakeErrorConversionMiddleware(kitmw.ErrorOption{
+	endpoints.WrapAllLabeledExcept(mw.LabeledMetrics(metrics, keyer))
+	endpoints.WrapAllLabeledExcept(mw.LabeledTraceServer(tracer, keyer))
+	endpoints.WrapAllExcept(mw.Validate())
+	endpoints.WrapAllExcept(mw.Error(mw.ErrorOption{
 		AlwaysHTTP200: true,
 		ShouldRecover: env.IsProduction(),
 	}))
-	endpoints.WrapAllLabeledExcept(kitmw.MakeLabeledLoggingMiddleware(logger, keyer, env.IsLocal()))
+	endpoints.WrapAllLabeledExcept(mw.LabeledLogging(logger, keyer, env.IsLocal()))
 	httpHandler := usersvc.MakeHTTPHandler(endpoints,
 		httptransport.ServerBefore(
-			kitmw.IpToHTTPContext(),
+			option.IPToHTTPContext(),
 			kittracing.HTTPToContext(tracer, "http", logger),
 		),
-		httptransport.ServerErrorEncoder(kitmw.ErrorEncoder),
+		httptransport.ServerErrorEncoder(option.ErrorEncoder),
 	)
 	grpcHandler := usersvc.MakeGRPCServer(endpoints,
 		grpctransport.ServerBefore(
 			kittracing.GRPCToContext(tracer, "grpc", logger),
-			kitmw.IpToGRPCContext(),
+			option.IPToGRPCContext(),
 		),
 		grpctransport.ServerBefore(jwt.GRPCToContext()),
 	)

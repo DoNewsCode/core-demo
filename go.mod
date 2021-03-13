@@ -3,7 +3,9 @@ module github.com/DoNewsCode/skeleton
 go 1.14
 
 require (
-	github.com/DoNewsCode/core v0.3.0
+	github.com/DoNewsCode/core v0.4.0-alpha.1
+	github.com/DoNewsCode/core-gin v0.1.0
+	github.com/DoNewsCode/core-kit v0.0.0-20210313065708-4d9d0b565bfd
 	github.com/envoyproxy/protoc-gen-validate v0.4.1
 	github.com/gin-gonic/gin v1.6.3
 	github.com/go-kit/kit v0.10.0
@@ -17,6 +19,6 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/cobra v1.1.3
 	google.golang.org/genproto v0.0.0-20210302174412-5ede27ff9881
-	google.golang.org/grpc v1.35.0
+	google.golang.org/grpc v1.36.0
 	gorm.io/gorm v1.21.3
 )

@@ -3,7 +3,7 @@ package book
 import (
 	"net/http"
 
-	"github.com/DoNewsCode/core/ginmw"
+	"github.com/DoNewsCode/core-gin/mw"
 	"github.com/DoNewsCode/core/key"
 	"github.com/gin-gonic/gin"
 	"github.com/go-kit/kit/log"
@@ -24,10 +24,10 @@ func NewTransport(b Handler, logger log.Logger, hist metrics.Histogram, tracer o
 	gin.SetMode(gin.ReleaseMode)
 	r := gin.New()
 	keyer := key.New("module", module, "service", service)
-	r.Use(ginmw.WithContext())
-	r.Use(ginmw.WithLogger(logger, keyer))
-	r.Use(ginmw.WithMetrics(hist, keyer, false))
-	r.Use(ginmw.WithTrace(tracer, keyer))
+	r.Use(mw.Context())
+	r.Use(mw.Log(logger, keyer))
+	r.Use(mw.Metrics(hist, keyer, false))
+	r.Use(mw.Trace(tracer, keyer))
 	r.Use(gin.Recovery())
 	r.GET("/", b.Find)
 	return Transport{Handler: r}
