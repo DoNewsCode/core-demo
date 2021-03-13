@@ -42,7 +42,7 @@ func NewTransport(
 		AlwaysHTTP200: true,
 		ShouldRecover: env.IsProduction(),
 	}))
-	endpoints.WrapAllLabeledExcept(mw.LabeledLogging(logger, keyer, env.IsLocal()))
+	endpoints.WrapAllLabeledExcept(mw.LabeledLog(logger, keyer, env.IsLocal()))
 	httpHandler := usersvc.MakeHTTPHandler(endpoints,
 		httptransport.ServerBefore(
 			option.IPToHTTPContext(),
