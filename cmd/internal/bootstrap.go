@@ -1,7 +1,6 @@
 package internal
 
 import (
-	"errors"
 	"math/rand"
 	"os"
 	"time"
@@ -32,7 +31,7 @@ func Bootstrap() (*cobra.Command, *core.C) {
 	_ = rootCmd.PersistentFlags().Parse(os.Args[1:])
 
 	var opts []core.CoreOption
-	if _, err := os.Stat(cfgPath); !errors.Is(err, os.ErrNotExist) {
+	if _, err := os.Stat(cfgPath); err == nil {
 		s, w := core.WithYamlFile(cfgPath)
 		opts = append(opts, s, w)
 	}

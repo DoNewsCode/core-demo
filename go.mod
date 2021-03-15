@@ -2,6 +2,8 @@ module github.com/DoNewsCode/skeleton
 
 go 1.14
 
+replace github.com/DoNewsCode/core => /Users/donew/src/std
+
 require (
 	github.com/DoNewsCode/core v0.4.0-alpha.1
 	github.com/DoNewsCode/core-gin v0.1.0

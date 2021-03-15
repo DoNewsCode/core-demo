@@ -1,10 +1,10 @@
 package user
 
 import (
-	"github.com/DoNewsCode/core-kit/option"
 	"net/http"
 
 	"github.com/DoNewsCode/core-kit/mw"
+	"github.com/DoNewsCode/core-kit/option"
 	"github.com/DoNewsCode/core/contract"
 	"github.com/DoNewsCode/core/key"
 	app_pb "github.com/DoNewsCode/skeleton/app/proto"
@@ -45,6 +45,8 @@ func NewTransport(
 	endpoints.WrapAllLabeledExcept(mw.LabeledLog(logger, keyer, env.IsLocal()))
 	httpHandler := usersvc.MakeHTTPHandler(endpoints,
 		httptransport.ServerBefore(
+			option.RequestURLToHTTPContext(),
+			option.TransportToHTTPContext(),
 			option.IPToHTTPContext(),
 			kittracing.HTTPToContext(tracer, "http", logger),
 		),
@@ -54,6 +56,7 @@ func NewTransport(
 		grpctransport.ServerBefore(
 			kittracing.GRPCToContext(tracer, "grpc", logger),
 			option.IPToGRPCContext(),
+			option.TransportToGRPCContext(),
 		),
 		grpctransport.ServerBefore(jwt.GRPCToContext()),
 	)
