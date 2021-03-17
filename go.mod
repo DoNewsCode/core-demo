@@ -5,7 +5,7 @@ go 1.14
 replace github.com/DoNewsCode/core => /Users/donew/src/std
 
 require (
-	github.com/DoNewsCode/core v0.4.0-alpha.1
+	github.com/DoNewsCode/core v0.4.0-alpha.2
 	github.com/DoNewsCode/core-gin v0.1.0
 	github.com/DoNewsCode/core-kit v0.0.0-20210313065708-4d9d0b565bfd
 	github.com/envoyproxy/protoc-gen-validate v0.4.1
