@@ -22,5 +22,5 @@ require (
 	github.com/spf13/cobra v1.1.3
 	google.golang.org/genproto v0.0.0-20210302174412-5ede27ff9881
 	google.golang.org/grpc v1.36.0
-	gorm.io/gorm v1.21.4
+	gorm.io/gorm v1.21.5
 )
