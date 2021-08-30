@@ -21,6 +21,6 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/cobra v1.1.3
 	google.golang.org/genproto v0.0.0-20210302174412-5ede27ff9881
-	google.golang.org/grpc v1.37.0
+	google.golang.org/grpc v1.40.0
 	gorm.io/gorm v1.21.9
 )
