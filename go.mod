@@ -7,7 +7,7 @@ replace github.com/DoNewsCode/core => /Users/donew/src/std
 require (
 	github.com/DoNewsCode/core v0.7.3
 	github.com/DoNewsCode/core-gin v0.1.0
-	github.com/DoNewsCode/core-kit v0.1.0
+	github.com/DoNewsCode/core-kit v0.2.1
 	github.com/envoyproxy/protoc-gen-validate v0.4.1
 	github.com/gin-gonic/gin v1.6.3
 	github.com/go-kit/kit v0.11.0
